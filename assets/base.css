@@ -2571,17 +2571,11 @@ input[type='checkbox'] {
 }
 
 .header__icon .icon {
-  height: 2rem;
-  width: 2rem;
-  fill: none;
-  vertical-align: middle;
-}
-
-.header__icon,
-.header__icon--cart .icon {
-  height: 4.4rem;
-  width: 4.4rem;
+  height: 2.5rem;
+  width: 2.5rem;
   padding: 0;
+  stroke-width: 1.5;
+  vertical-align: middle;
 }
 
 .header__icon--cart {

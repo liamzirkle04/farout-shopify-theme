@@ -1313,7 +1313,8 @@
         "type": "text",
         "id": "social_instagram_link",
         "label": "t:settings_schema.social-media.settings.social_instagram_link.label",
-        "placeholder": "t:settings_schema.social-media.settings.social_instagram_link.info"
+        "placeholder": "t:settings_schema.social-media.settings.social_instagram_link.info",
+        "default": "https://www.instagram.com/faroutflatbeds"
       },
       {
         "type": "text",

@@ -1508,6 +1508,10 @@
         "header_2":{
         "content": "Content"
         },
+        "section_heading":{
+        "label": "Heading",
+        "default": "Tell your brand story"
+        },
         "header_3":{
         "content": "Colors"
         },        

@@ -1158,10 +1158,7 @@
       "name": "Image banner",
       "settings": {
         "image": {
-          "label": "Image 1"
-        },
-        "image_2": {
-          "label": "Image 2"
+          "label": "Image"
         },
         "image_overlay_opacity": {
           "label": "Overlay opacity"
@@ -1179,10 +1176,16 @@
           },
           "options__4": {
             "label": "Large"
+          },
+          "options__5": {
+            "label": "Full screen"
           }
           },
         "content": {
           "content": "Content"
+        },
+        "banner_color_scheme": {
+          "label": "Banner color scheme"
         },
         "desktop_content_position": {
           "options__1": {
@@ -1211,6 +1214,9 @@
           },
           "options__9": {
             "label": "Bottom Right"
+          },
+          "options__10": {
+            "label": "Edge-aligned bottom left"
           },
           "label": "Position"
         },
@@ -1244,9 +1250,6 @@
           },
           "label": "Alignment"
         },
-        "stack_images_on_mobile": {
-          "label": "Stack images"
-        },
         "show_text_below": {
           "label": "Container"
         }
@@ -1257,7 +1260,7 @@
           "settings": {
             "heading": {
               "label": "Heading",
-              "default": "Image banner"
+              "default": "More than a flatbed"
             }
           }
         },

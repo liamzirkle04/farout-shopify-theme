@@ -2813,6 +2813,10 @@ details[open] > .header__submenu {
   .header--middle-left-links-right .header__inline-menu > .list-menu--inline {
     justify-content: flex-end;
   }
+
+  .header__inline-menu .header__menu-item {
+    font-size: 1em;
+  }
 }
 
 .header__menu {

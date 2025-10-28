@@ -9,9 +9,9 @@
             "background": "#FFFFFF",
             "background_gradient": "",
             "text": "#121212",
-            "button": "#121212",
+            "button": "#3C342C",
             "button_label": "#FFFFFF",
-            "secondary_button_label": "#121212",
+            "secondary_button_label": "#3C342C",
             "shadow": "#121212"
           }
         },
@@ -20,41 +20,30 @@
             "background": "#F3F3F3",
             "background_gradient": "",
             "text": "#121212",
-            "button": "#121212",
+            "button": "#3C342C",
             "button_label": "#F3F3F3",
-            "secondary_button_label": "#121212",
+            "secondary_button_label": "#3C342C",
             "shadow": "#121212"
           }
         },
         "scheme-3": {
           "settings": {
-            "background": "#242833",
+            "background": "#2B2620",
             "background_gradient": "",
             "text": "#FFFFFF",
             "button": "#FFFFFF",
-            "button_label": "#000000",
+            "button_label": "#2B2620",
             "secondary_button_label": "#FFFFFF",
             "shadow": "#121212"
           }
         },
         "scheme-4": {
           "settings": {
-            "background": "#121212",
+            "background": "#1F1B17",
             "background_gradient": "",
             "text": "#FFFFFF",
             "button": "#FFFFFF",
-            "button_label": "#121212",
-            "secondary_button_label": "#FFFFFF",
-            "shadow": "#121212"
-          }
-        },
-        "scheme-5": {
-          "settings": {
-            "background": "#334FB4",
-            "background_gradient": "",
-            "text": "#FFFFFF",
-            "button": "#FFFFFF",
-            "button_label": "#334FB4",
+            "button_label": "#1F1B17",
             "secondary_button_label": "#FFFFFF",
             "shadow": "#121212"
           }
@@ -151,7 +140,7 @@
       "drawer_shadow_blur": 5,
       "badge_position": "bottom left",
       "badge_corner_radius": 40,
-      "sale_badge_color_scheme": "scheme-5",
+      "sale_badge_color_scheme": "scheme-4",
       "sold_out_badge_color_scheme": "scheme-3",
       "social_twitter_link": "",
       "social_facebook_link": "",

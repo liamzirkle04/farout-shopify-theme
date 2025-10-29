@@ -27,12 +27,19 @@
 }
 
 .footer__brand-image-wrapper {
-  max-width: min(100%, 240px);
+  --footer-logo-max: 240px;
+  max-width: min(100%, var(--footer-logo-max));
 }
 
 .footer__brand-image {
   width: 100%;
   height: auto;
+}
+
+.footer.color-scheme-3 .footer__brand-image,
+.footer.color-scheme-4 .footer__brand-image,
+.footer.color-scheme-5 .footer__brand-image {
+  filter: brightness(0) invert(1);
 }
 
 .footer__menu-list {

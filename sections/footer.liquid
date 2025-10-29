@@ -44,17 +44,17 @@
   <div class="footer__content-top page-width">
     <div class="footer__grid{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"{% if settings.animations_reveal_on_scroll %} data-cascade{% endif %}>
       <div class="footer__grid-column footer__grid-column--brand"{% if settings.animations_reveal_on_scroll %} style="--animation-order: 1;"{% endif %}>
-        {%- if settings.brand_image != blank -%}
-          {%- assign brand_image_height = settings.brand_image_width | divided_by: settings.brand_image.aspect_ratio -%}
-          <div class="footer__brand-image-wrapper">
+        {%- if settings.logo != blank -%}
+          {%- assign footer_logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+          <div class="footer__brand-image-wrapper" style="--footer-logo-max: {{ settings.logo_width }}px;">
             {{
-              settings.brand_image
+              settings.logo
               | image_url: width: 1100
               | image_tag:
                 loading: 'lazy',
                 widths: '100, 200, 300, 400, 550, 800, 1100',
-                height: brand_image_height,
-                width: settings.brand_image_width,
+                height: footer_logo_height,
+                width: settings.logo_width,
                 class: 'footer__brand-image'
             }}
           </div>

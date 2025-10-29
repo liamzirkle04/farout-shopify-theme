@@ -56,8 +56,8 @@
             "caption": "Work-ready",
             "heading": "Built for the long haul",
             "text": "<p>Our adaptive flatbeds flex with your payload so you can move faster and safer.<\/p>",
-            "button_label": "Explore builds",
-            "button_link": "shopify://collections/all"
+            "button_label": "",
+            "button_link": ""
           }
         },
         "row-2": {
@@ -67,8 +67,8 @@
             "caption": "Custom fit",
             "heading": "Dialed for your rig",
             "text": "<p>Pick finishes, storage, and lighting packages that match how you work.<\/p>",
-            "button_label": "Start configuring",
-            "button_link": "shopify://collections/custom"
+            "button_label": "",
+            "button_link": ""
           }
         }
       },

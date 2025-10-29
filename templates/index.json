@@ -99,11 +99,102 @@
         "padding_top": 28,
         "padding_bottom": 36
       }
+    },
+    "far_out_features": {
+      "type": "far-out-features",
+      "blocks": {
+        "feature-1": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Bolt-Together Design",
+            "description": "Anodized aluminum extrusions connect with serviceable hardware allowing for endless repairs and upgrades.",
+            "column_span": 3,
+            "row_span": 2,
+            "color_scheme": "scheme-4"
+          }
+        },
+        "feature-2": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Flatpac Shipping",
+            "description": "Our bolt-together design ships flat to your door and assembles fast for a modular upgrade.",
+            "column_span": 2,
+            "row_span": 2,
+            "color_scheme": "scheme-4"
+          }
+        },
+        "feature-3": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Powder-Coated Armor",
+            "description": "Textured powder coat shrugs off trail rash while sealed seams keep corrosion at bay.",
+            "column_span": 2,
+            "row_span": 2,
+            "color_scheme": "scheme-4"
+          }
+        },
+        "feature-4": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Oversized Fenders",
+            "description": "Designed to swallow 40-inch tires with room to spare, keeping clearance dialed on any trail.",
+            "column_span": 2,
+            "row_span": 2,
+            "color_scheme": "scheme-4"
+          }
+        },
+        "feature-5": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Modular Gear Rails",
+            "description": "Full-perimeter accessory rail accepts MOLLE plates, RTT mounts, and cargo solutions without drilling.",
+            "column_span": 2,
+            "row_span": 2,
+            "color_scheme": "scheme-4"
+          }
+        },
+        "feature-6": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Storage Options",
+            "description": "Integrated drawers, cubbies, and tie-down points keep tools and gear organized for any mission.",
+            "column_span": 2,
+            "row_span": 2,
+            "color_scheme": "scheme-4"
+          }
+        },
+        "feature-7": {
+          "type": "feature_card",
+          "settings": {
+            "title": "Transferable Between Vehicles",
+            "description": "Swap the flatbed onto any similar-size truck when you upgrade, so your setup keeps rolling with you.",
+            "column_span": 6,
+            "row_span": 3,
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4",
+        "feature-5",
+        "feature-6",
+        "feature-7"
+      ],
+      "settings": {
+        "anchor_id": "features",
+        "kicker": "Highlights",
+        "heading": "Modular by Design",
+        "intro": "<p>These are the core systems that make Far Out Flatbeds adaptable, future-proof, and easy to live with day to day.</p>"
+      }
     }
   },
   "order": [
     "image_banner",
     "custom_multirow_home",
+    "far_out_features",
     "featured_collection"
   ]
 }

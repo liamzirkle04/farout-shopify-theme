@@ -1,0 +1,328 @@
+{% liquid
+  assign feature_heading_default = 'sections.features.title' | t
+  assign feature_heading = section.settings.heading | default: feature_heading_default
+  assign feature_kicker = section.settings.kicker
+  assign feature_intro = section.settings.intro
+%}
+
+<section class="fof-features" id="{{ section.settings.anchor_id | default: 'features' }}">
+  <div class="fof-shell fof-features__shell">
+    <div class="fof-features__title">
+      {% if feature_kicker != blank %}
+        <span class="fof-kicker">{{ feature_kicker }}</span>
+      {% endif %}
+      <h2>{{ feature_heading }}</h2>
+      {% if feature_intro != blank %}
+        <div class="fof-features__intro">
+          {{ feature_intro }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="fof-features__grid">
+        {% for block in section.blocks %}
+          {% capture title_key %}sections.features.cards.{{ forloop.index }}.title{% endcapture %}
+          {% capture description_key %}sections.features.cards.{{ forloop.index }}.description{% endcapture %}
+          {% assign default_title = title_key | t %}
+          {% assign default_description = description_key | t %}
+          {% liquid
+            assign block_color_scheme = block.settings.color_scheme | default: 'scheme-4'
+            assign feature_title = block.settings.title | default: default_title
+            assign feature_description = block.settings.description | default: default_description
+            assign feature_image = block.settings.image
+            assign feature_image_alt = block.settings.image_alt | default: block.settings.title | default: default_title
+            assign feature_image_alt = feature_image_alt | strip | escape
+            assign column_span = block.settings.column_span | default: 3 | abs
+            assign row_span = block.settings.row_span | default: 2 | abs
+            if column_span < 1
+              assign column_span = 1
+            endif
+            if column_span > 6
+              assign column_span = 6
+            endif
+            if row_span < 1
+              assign row_span = 1
+            endif
+            if row_span > 6
+              assign row_span = 6
+            endif
+            assign feature_background = ''
+            if feature_image
+              assign feature_background = feature_image | image_url: width: 1600
+            endif
+            assign feature_styles = 'grid-column: span ' | append: column_span | append: '; grid-row: span ' | append: row_span | append: ';'
+            if feature_background != blank
+              assign feature_styles = feature_styles | append: ' background-image: url("' | append: feature_background | append: '");'
+            endif
+          %}
+          <article
+            class="fof-feature-card color-{{ block_color_scheme }} gradient"
+            style="{{ feature_styles }}"
+            {{ block.shopify_attributes }}
+          >
+            {% if feature_image %}
+              <div class="fof-feature-card__media">
+                {{ feature_image
+                  | image_url: width: 1600
+                  | image_tag:
+                    alt: feature_image_alt,
+                    loading: 'lazy',
+                    widths: '600, 900, 1200, 1600',
+                    class: 'fof-feature-card__image'
+                }}
+              </div>
+            {% endif %}
+            <div class="fof-feature-card__content">
+              <h3>{{ feature_title }}</h3>
+              {% if feature_description != blank %}
+                <p>{{ feature_description }}</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fof-features {
+    margin-top: 0;
+    padding: clamp(48px, 6vw, 72px) 0 clamp(36px, 5vw, 64px);
+    background: #f5f1eb;
+    border-top: 1px solid rgba(31, 27, 23, 0.1);
+  }
+
+  .fof-features .fof-shell {
+    width: 100%;
+    margin: 0;
+    padding: 0 clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .fof-features__shell {
+    display: grid;
+    gap: clamp(24px, 5vw, 48px);
+  }
+
+  .fof-features__title {
+    display: grid;
+    gap: clamp(14px, 3vw, 24px);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .fof-features__title h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(31, 27, 23, 0.72);
+  }
+
+  .fof-features .fof-kicker {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(24, 21, 17, 0.7);
+  }
+
+  .fof-features__intro {
+    max-width: 720px;
+    color: rgba(31, 27, 23, 0.75);
+    line-height: 1.6;
+  }
+
+  .fof-features__grid {
+    margin-top: 16px;
+    display: grid;
+    gap: clamp(18px, 2vw, 28px);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(140px, 1fr);
+  }
+
+  .fof-feature-card {
+    --fof-feature-bg-rgb: var(--color-background, 19, 16, 13);
+    --fof-feature-fg-rgb: var(--color-foreground, 245, 241, 234);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: clamp(200px, 34vw, 420px);
+    background: rgb(var(--fof-feature-bg-rgb));
+    color: rgb(var(--fof-feature-fg-rgb));
+    box-shadow: 0 24px 48px rgba(23, 20, 16, 0.16);
+    isolation: isolate;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .fof-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 52px rgba(23, 20, 16, 0.24);
+  }
+
+  .fof-feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--fof-feature-bg-rgb), 0.05) 0%,
+      rgba(var(--fof-feature-bg-rgb), 0.54) 62%,
+      rgba(var(--fof-feature-bg-rgb), 0.8) 100%
+    );
+    z-index: 1;
+  }
+
+  .fof-feature-card__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .fof-feature-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .fof-feature-card__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: clamp(16px, 2vw, 28px);
+    display: grid;
+    gap: 8px;
+    text-shadow: 0 2px 8px rgba(var(--fof-feature-bg-rgb), 0.6);
+  }
+
+  .fof-feature-card__content h3 {
+    margin: 0;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+  }
+
+  .fof-feature-card__content p {
+    margin: 0;
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    line-height: 1.5;
+    color: rgba(var(--fof-feature-fg-rgb), 0.88);
+  }
+
+  @media (max-width: 900px) {
+    .fof-features__grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-auto-rows: auto;
+      gap: 16px;
+    }
+
+    .fof-feature-card {
+      grid-column: auto !important;
+      grid-row: auto !important;
+      min-height: 240px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fof-feature-card {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Far Out Features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "features"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Highlights"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro copy"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Feature card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Bolt-Together Design"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Anodized aluminum extrusions connect with serviceable hardware allowing for endless repairs and upgrades."
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text"
+        },
+        {
+          "type": "range",
+          "id": "column_span",
+          "label": "Width",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "row_span",
+          "label": "Height",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 2
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Far Out Features"
+    }
+  ]
+}
+{% endschema %}

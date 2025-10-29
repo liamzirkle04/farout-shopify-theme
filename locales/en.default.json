@@ -338,6 +338,35 @@
     "video": {
       "load_video": "Load video: {{ description }}"
     },
+    "features": {
+      "title": "Feature Highlights",
+      "cards": {
+        "1": {
+          "title": "Bolt-Together Design",
+          "description": "Anodized aluminum extrusions connect with serviceable hardware allowing for endless repairs and upgrades."
+        },
+        "2": {
+          "title": "Modular Accessory Mounting",
+          "description": "Track-based mounting points let you reconfigure gear, storage, and recovery accessories without drilling."
+        },
+        "3": {
+          "title": "Lightweight Strength",
+          "description": "Extruded aluminum delivers high payload capacity without the weight penalty of steel."
+        },
+        "4": {
+          "title": "Flatpack Shipping",
+          "description": "Ships efficiently to your door and assembles with standard tools to keep build costs down."
+        },
+        "5": {
+          "title": "Trail-Ready Lighting",
+          "description": "Integrated lighting channels keep wiring protected for work and adventure visibility."
+        },
+        "6": {
+          "title": "Future-Proof Fit",
+          "description": "Designed to move between trucks of similar size so your build evolves with you."
+        }
+      }
+    },
     "slideshow": {
       "load_slide": "Load slide",
       "previous_slideshow": "Previous slide",

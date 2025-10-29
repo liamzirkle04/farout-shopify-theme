@@ -1,0 +1,364 @@
+{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .section-{{ section.id }}-gap .multirow__inner {
+    row-gap: {{ section.settings.row_gap_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .section-{{ section.id }}-gap .multirow__inner {
+      row-gap: {{ section.settings.row_gap_desktop }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign anchor_id = section.settings.section_anchor_id | strip
+  assign no_content_background = true
+
+  if settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0
+    assign no_content_styles = true
+  endif
+
+  if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0
+    assign borders_class = ' collapse-borders'
+  endif
+
+  if no_content_background and no_content_styles
+    assign padding_class = ' collapse-padding'
+  endif
+
+  unless no_content_background and no_content_styles
+    assign corners_class = ' collapse-corners'
+  endunless
+-%}
+
+<div{% if anchor_id != '' %} id="{{ anchor_id | escape }}"{% endif %} class="multirow section-{{ section.id }}-padding section-{{ section.id }}-gap gradient color-{{ section.settings.section_color_scheme }}">
+  <div class="multirow__inner page-width">
+    {%- if section.settings.section_heading != blank -%}
+      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin" style="text-align: center;">
+        <h2 class="title inline-richtext h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-left: auto; margin-right: auto;">
+          {{ section.settings.section_heading }}
+        </h2>
+      </div>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign block_direction = block.settings.direction
+        assign grid_direction_class = ''
+
+        if block_direction == 'image-right'
+          assign grid_direction_class = ' image-with-text__grid--reverse'
+        elsif block_direction == 'image-left'
+          assign grid_direction_class = ''
+        else
+          capture default_direction
+            cycle '', ' image-with-text__grid--reverse'
+          endcapture
+          assign grid_direction_class = default_direction
+        endif
+
+        assign block_radius = block.settings.corner_radius | default: 0
+
+        assign width_scale = block.settings.image_width_scale | default: 2 | plus: 0
+        case width_scale
+          when 1
+            assign media_width_class = 'small'
+          when 3
+            assign media_width_class = 'large'
+          else
+            assign media_width_class = 'medium'
+        endcase
+
+        assign grid_tablet_class = '2-col-tablet'
+        if media_width_class != 'medium'
+          assign grid_tablet_class = '3-col-tablet'
+        endif
+
+        assign height_scale = block.settings.image_height_scale | default: 3 | plus: 0
+        case height_scale
+          when 1
+            assign media_height_class = 'adapt'
+          when 2
+            assign media_height_class = 'small'
+          when 4
+            assign media_height_class = 'medium-large'
+          when 5
+            assign media_height_class = 'large'
+          else
+            assign media_height_class = 'medium'
+        endcase
+
+        assign media_styles = ''
+        if media_height_class == 'adapt' and block.settings.image != blank
+          assign adapt_padding = 1 | divided_by: block.settings.image.aspect_ratio | times: 100
+          assign media_styles = 'padding-bottom: ' | append: adapt_padding | append: '%;'
+        endif
+
+        assign wrapper_styles = ''
+        if block_radius > 0
+          assign wrapper_styles = '--media-radius: ' | append: block_radius | append: 'px; --text-boxes-radius: ' | append: block_radius | append: 'px;'
+        endif
+      -%}
+      <div
+        class="image-with-text isolate{{ borders_class }}{{ corners_class }}{{ padding_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        {% if wrapper_styles != '' %}style="{{ wrapper_styles }}"{% endif %}
+        {{ block.shopify_attributes }}
+      >
+        <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{{ grid_tablet_class }}{{ grid_direction_class }}">
+          <div class="image-with-text__media-item image-with-text__media-item--{{ media_width_class }} image-with-text__media-item--middle grid__item">
+            <div
+              class="image-with-text__media image-with-text__media--{{ media_height_class }} gradient color-{{ section.settings.section_color_scheme }} global-media-settings{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
+              {% if media_styles != '' %}style="{{ media_styles }}"{% endif %}
+            >
+              {%- if block.settings.image != blank -%}
+                {%- capture sizes -%}
+                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                {%- endcapture -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1500
+                  | image_tag: sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500'
+                }}
+              {%- else -%}
+                {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="image-with-text__text-item grid__item">
+            <div class="image-with-text__content image-with-text__content--middle image-with-text__content--desktop-left image-with-text__content--mobile-left image-with-text__content--{{ media_height_class }} content-container{% unless no_content_background and no_content_styles %} gradient color-{{ section.settings.section_color_scheme }}{% else %} background-transparent{% endunless %}">
+              {%- if block.settings.caption -%}
+                <p class="image-with-text__text image-with-text__text--caption caption-with-letter-spacing caption-with-letter-spacing--medium">
+                  {{ block.settings.caption | escape }}
+                </p>
+              {%- endif -%}
+              {%- if block.settings.heading -%}
+                <h2 class="image-with-text__heading h2 rte" style="margin-top: 1.2rem;">
+                  {{ block.settings.heading }}
+                </h2>
+              {%- endif -%}
+              {%- if block.settings.text -%}
+                <div class="image-with-text__text rte body">{{ block.settings.text }}</div>
+              {%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+                <a
+                  {% if block.settings.button_link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link }}"
+                  {% endif %}
+                  class="button button--secondary"
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Multirow Info",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.multirow.settings.header.content"
+    },
+    {
+      "type": "range",
+      "id": "row_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 32,
+      "unit": "px",
+      "label": "Row gap (mobile)"
+    },
+    {
+      "type": "range",
+      "id": "row_gap_desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 56,
+      "unit": "px",
+      "label": "Row gap (desktop)"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multirow.settings.header_2.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "default": "About",
+      "label": "t:sections.multirow.settings.section_heading.label"
+    },
+    {
+      "type": "text",
+      "id": "section_anchor_id",
+      "label": "Section anchor ID",
+      "default": "about"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multirow.settings.header_3.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "t:sections.multirow.blocks.row.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multirow.blocks.row.settings.image.label"
+        },
+        {
+          "type": "range",
+          "id": "image_width_scale",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 2,
+          "label": "Image width",
+          "info": "1 = small, 2 = medium, 3 = large"
+        },
+        {
+          "type": "range",
+          "id": "image_height_scale",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3,
+          "label": "Image height",
+          "info": "1 = adapt, 2 = small, 3 = medium, 4 = medium-large, 5 = large"
+        },
+        {
+          "type": "range",
+          "id": "corner_radius",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "default": 20,
+          "unit": "px",
+          "label": "Corner radius"
+        },
+        {
+          "type": "select",
+          "id": "direction",
+          "default": "inherit",
+          "label": "Image direction",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Inherit section"
+            },
+            {
+              "value": "image-left",
+              "label": "Image left"
+            },
+            {
+              "value": "image-right",
+              "label": "Image right"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "default": "t:sections.multirow.blocks.row.settings.caption.default",
+          "label": "t:sections.multirow.blocks.row.settings.caption.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "t:sections.multirow.blocks.row.settings.heading.default",
+          "label": "t:sections.multirow.blocks.row.settings.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "t:sections.multirow.blocks.row.settings.text.default",
+          "label": "t:sections.multirow.blocks.row.settings.text.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "t:sections.multirow.blocks.row.settings.button_label.default",
+          "label": "t:sections.multirow.blocks.row.settings.button_label.label", 
+          "info": "t:sections.multirow.blocks.row.settings.button_label.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.multirow.blocks.row.settings.button_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multirow Info",
+      "blocks": [
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

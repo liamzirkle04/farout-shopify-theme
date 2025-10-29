@@ -47,6 +47,39 @@
         "show_text_below": false
       }
     },
+    "custom_multirow_home": {
+      "type": "multirow-custom",
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "caption": "Work-ready",
+            "heading": "Built for the long haul",
+            "text": "<p>Our adaptive flatbeds flex with your payload so you can move faster and safer.<\/p>",
+            "button_label": "Explore builds",
+            "button_link": "shopify://collections/all"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "direction": "image-right",
+            "caption": "Custom fit",
+            "heading": "Dialed for your rig",
+            "text": "<p>Pick finishes, storage, and lighting packages that match how you work.<\/p>",
+            "button_label": "Start configuring",
+            "button_link": "shopify://collections/custom"
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2"
+      ],
+      "settings": {
+        "section_heading": "Why Far Out"
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -189,10 +222,10 @@
   },
   "order": [
     "image_banner",
+    "custom_multirow_home",
     "rich_text",
     "featured_collection",
     "collage",
-    "video",
     "multicolumn"
   ]
 }

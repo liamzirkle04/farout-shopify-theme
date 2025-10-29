@@ -25,6 +25,10 @@
   height: 29.6rem;
 }
 
+.image-with-text__media--medium-large {
+  height: 36rem;
+}
+
 .image-with-text__media--large {
   height: 43.5rem;
 }
@@ -36,6 +40,10 @@
 
   .image-with-text__media--medium {
     height: 46rem;
+  }
+
+  .image-with-text__media--medium-large {
+    height: 57.5rem;
   }
 
   .image-with-text__media--large {

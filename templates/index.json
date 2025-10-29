@@ -108,8 +108,8 @@
           "settings": {
             "title": "Bolt-Together Design",
             "description": "Anodized aluminum extrusions connect with serviceable hardware allowing for endless repairs and upgrades.",
-            "column_span": 3,
-            "row_span": 2,
+            "column_span": 4,
+            "row_span": 4,
             "color_scheme": "scheme-4"
           }
         },
@@ -189,12 +189,22 @@
         "heading": "Modular by Design",
         "intro": "<p>These are the core systems that make Far Out Flatbeds adaptable, future-proof, and easy to live with day to day.</p>"
       }
+    },
+    "contact_form_home": {
+      "type": "contact-form",
+      "settings": {
+        "anchor_id": "contact",
+        "heading": "Ready to build your perfect flatbed?",
+        "heading_size": "h2",
+        "color_scheme": "scheme-3"
+      }
     }
   },
   "order": [
     "image_banner",
     "custom_multirow_home",
     "far_out_features",
-    "featured_collection"
+    "featured_collection",
+    "contact_form_home"
   ]
 }

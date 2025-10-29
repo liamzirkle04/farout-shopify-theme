@@ -14,7 +14,16 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
+{%- liquid
+  assign anchor_id_setting = section.settings.anchor_id | strip
+  if anchor_id_setting == blank
+    assign anchor_id = 'contact'
+  else
+    assign anchor_id = anchor_id_setting | handleize
+  endif
+-%}
+
+<div id="{{ anchor_id }}" class="color-{{ section.settings.color_scheme }} gradient">
   <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
     {%- if section.settings.heading != blank -%}
       <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -144,6 +153,13 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Optional ID attribute for anchor links.",
+      "default": ""
+    },
     {
       "type": "inline_richtext",
       "id": "heading",

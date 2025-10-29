@@ -5,8 +5,8 @@
   assign feature_intro = section.settings.intro
 %}
 
-<section class="fof-features page-width" id="{{ section.settings.anchor_id | default: 'features' }}">
-  <div class="fof-shell fof-features__shell">
+<section class="fof-features" id="{{ section.settings.anchor_id | default: 'features' }}">
+  <div class="fof-shell fof-features__shell page-width">
     <div class="fof-features__title">
       {% if feature_kicker != blank %}
         <span class="fof-kicker">{{ feature_kicker }}</span>
@@ -98,6 +98,7 @@
     width: 100%;
     margin: 0;
     padding: 0 clamp(1.5rem, 4vw, 4rem);
+    margin: 0 auto;
   }
 
   .fof-features__shell {

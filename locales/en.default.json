@@ -60,7 +60,11 @@
   "newsletter": {
     "label": "Email",
     "success": "Thanks for subscribing",
-    "button_label": "Subscribe"
+    "button_label": "Subscribe",
+    "first_name_label": "First name",
+    "last_name_label": "Last name",
+    "phone_label": "Phone number",
+    "message_label": "Tell us about your request"
   },
   "accessibility": {
     "skip_to_text": "Skip to content",
@@ -281,6 +285,50 @@
       "cart_count": {
         "one": "{{ count }} item",
         "other": "{{ count }} items"
+      },
+      "settings": {
+        "header_icon_image_label": "Header icon image",
+        "header_icon_image_info": "Upload a logo or icon to replace the Far Out Flatbeds text in the header.",
+        "header_icon_alt_label": "Header icon alt text",
+        "header_icon_alt_info": "Describe the header image for accessibility.",
+        "header_icon_width_label": "Header icon width"
+      }
+    },
+    "multirow": {
+      "settings": {
+        "section_background_image": {
+          "label": "Background image",
+          "info": "Upload a background image for the About section."
+        },
+        "section_background_overlay_color": {
+          "label": "Overlay color"
+        },
+        "section_background_overlay_opacity": {
+          "label": "Overlay opacity"
+        },
+        "section_color_scheme": {
+          "label": "Section color scheme"
+        }
+      }
+    },
+    "newsletter": {
+      "blocks": {
+        "email_form": {
+          "settings": {
+            "include_first_name": {
+              "label": "Show first name field"
+            },
+            "include_last_name": {
+              "label": "Show last name field"
+            },
+            "include_phone": {
+              "label": "Show phone field"
+            },
+            "include_message": {
+              "label": "Show message field"
+            }
+          }
+        }
       }
     },
     "cart": {

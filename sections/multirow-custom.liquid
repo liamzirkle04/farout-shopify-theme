@@ -10,6 +10,58 @@
     row-gap: {{ section.settings.row_gap_mobile }}px;
   }
 
+  .section-{{ section.id }}-background {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-background::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: var(--section-background-image, none);
+  }
+
+  .section-{{ section.id }}-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-color: rgba(var(--section-overlay-rgb, 0, 0, 0), var(--section-overlay-opacity, 0));
+    opacity: 1;
+  }
+
+  .section-{{ section.id }}-background .section-background-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .multirow--has-background-image .section-background-content.gradient {
+    background: none !important;
+    background-color: transparent !important;
+  }
+
+  .multirow--has-background-image .image-with-text__grid .grid__item::after,
+  .multirow--has-background-image .image-with-text__media,
+  .multirow--has-background-image .image-with-text__content,
+  .multirow--has-background-image .image-with-text__media.gradient,
+  .multirow--has-background-image .image-with-text__content.gradient {
+    background: transparent;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .multirow--has-background-image .image-with-text__media-item > *,
+  .multirow--has-background-image .image-with-text__text-item > * {
+    background: transparent;
+    background-color: transparent;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -25,6 +77,14 @@
 {%- liquid
   assign anchor_id = section.settings.section_anchor_id | strip
   assign no_content_background = true
+  assign section_background_image = section.settings.section_background_image
+  assign overlay_color = section.settings.section_background_overlay_color | default: '#000000'
+  assign overlay_opacity_value = section.settings.section_background_overlay_opacity | default: 0 | times: 0.01
+  assign overlay_opacity_for_styles = 0
+  if section_background_image != blank
+    assign overlay_opacity_for_styles = overlay_opacity_value
+  endif
+  assign overlay_rgb = overlay_color | color_to_rgb
 
   if settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0
     assign no_content_styles = true
@@ -43,17 +103,33 @@
   endunless
 -%}
 
-<div{% if anchor_id != '' %} id="{{ anchor_id | escape }}"{% endif %} class="multirow section-{{ section.id }}-padding section-{{ section.id }}-gap gradient color-{{ section.settings.section_color_scheme }}">
-  <div class="multirow__inner page-width">
-    {%- if section.settings.section_heading != blank -%}
-      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin" style="text-align: center;">
-        <h2 class="title inline-richtext h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-left: auto; margin-right: auto;">
-          {{ section.settings.section_heading }}
-        </h2>
-      </div>
-    {%- endif -%}
-    {%- for block in section.blocks -%}
-      {%- liquid
+{% liquid
+  capture section_background_styles
+    echo '--section-overlay-rgb: '
+    echo overlay_rgb
+    echo '; --section-overlay-opacity: '
+    echo overlay_opacity_for_styles
+    echo ';'
+    if section_background_image != blank
+      echo ' --section-background-image: url('
+      echo section_background_image | image_url: width: 3840
+      echo ');'
+    endif
+  endcapture
+%}
+
+<div{% if anchor_id != '' %} id="{{ anchor_id | escape }}"{% endif %} class="multirow section-{{ section.id }}-padding section-{{ section.id }}-gap section-{{ section.id }}-background{% if section_background_image != blank %} multirow--has-background-image{% endif %}" style="{{ section_background_styles | strip }}">
+  <div class="section-background-content gradient color-{{ section.settings.section_color_scheme }}">
+    <div class="multirow__inner page-width">
+      {%- if section.settings.section_heading != blank -%}
+        <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin" style="text-align: center;">
+          <h2 class="title inline-richtext h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-left: auto; margin-right: auto;">
+            {{ section.settings.section_heading }}
+          </h2>
+        </div>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
         assign block_direction = block.settings.direction
         assign grid_direction_class = ''
 
@@ -110,64 +186,65 @@
           assign wrapper_styles = '--media-radius: ' | append: block_radius | append: 'px; --text-boxes-radius: ' | append: block_radius | append: 'px;'
         endif
       -%}
-      <div
-        class="image-with-text isolate{{ borders_class }}{{ corners_class }}{{ padding_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-        {% if wrapper_styles != '' %}style="{{ wrapper_styles }}"{% endif %}
-        {{ block.shopify_attributes }}
-      >
-        <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{{ grid_tablet_class }}{{ grid_direction_class }}">
-          <div class="image-with-text__media-item image-with-text__media-item--{{ media_width_class }} image-with-text__media-item--middle grid__item">
-            <div
-              class="image-with-text__media image-with-text__media--{{ media_height_class }} gradient color-{{ section.settings.section_color_scheme }} global-media-settings{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
-              {% if media_styles != '' %}style="{{ media_styles }}"{% endif %}
-            >
-              {%- if block.settings.image != blank -%}
-                {%- capture sizes -%}
-                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
-                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
-                {%- endcapture -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 1500
-                  | image_tag: sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500'
-                }}
-              {%- else -%}
-                {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              {%- endif -%}
+        <div
+          class="image-with-text isolate{{ borders_class }}{{ corners_class }}{{ padding_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if wrapper_styles != '' %}style="{{ wrapper_styles }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{{ grid_tablet_class }}{{ grid_direction_class }}">
+            <div class="image-with-text__media-item image-with-text__media-item--{{ media_width_class }} image-with-text__media-item--middle grid__item">
+              <div
+                class="image-with-text__media image-with-text__media--{{ media_height_class }} gradient color-{{ section.settings.section_color_scheme }} global-media-settings{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
+                {% if media_styles != '' %}style="{{ media_styles }}"{% endif %}
+              >
+                {%- if block.settings.image != blank -%}
+                  {%- capture sizes -%}
+                    (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                    (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                  {%- endcapture -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1500
+                    | image_tag: sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500'
+                  }}
+                {%- else -%}
+                  {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
             </div>
-          </div>
-          <div class="image-with-text__text-item grid__item">
-            <div class="image-with-text__content image-with-text__content--middle image-with-text__content--desktop-left image-with-text__content--mobile-left image-with-text__content--{{ media_height_class }} content-container{% unless no_content_background and no_content_styles %} gradient color-{{ section.settings.section_color_scheme }}{% else %} background-transparent{% endunless %}">
-              {%- if block.settings.caption -%}
-                <p class="image-with-text__text image-with-text__text--caption caption-with-letter-spacing caption-with-letter-spacing--medium">
-                  {{ block.settings.caption | escape }}
-                </p>
-              {%- endif -%}
-              {%- if block.settings.heading -%}
-                <h2 class="image-with-text__heading h2 rte" style="margin-top: 1.2rem;">
-                  {{ block.settings.heading }}
-                </h2>
-              {%- endif -%}
-              {%- if block.settings.text -%}
-                <div class="image-with-text__text rte body">{{ block.settings.text }}</div>
-              {%- endif -%}
-              {%- if block.settings.button_label != blank -%}
-                <a
-                  {% if block.settings.button_link == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link }}"
-                  {% endif %}
-                  class="button button--secondary"
-                >
-                  {{ block.settings.button_label | escape }}
-                </a>
-              {%- endif -%}
+            <div class="image-with-text__text-item grid__item">
+              <div class="image-with-text__content image-with-text__content--middle image-with-text__content--desktop-left image-with-text__content--mobile-left image-with-text__content--{{ media_height_class }} content-container{% unless no_content_background and no_content_styles %} gradient color-{{ section.settings.section_color_scheme }}{% else %} background-transparent{% endunless %}">
+                {%- if block.settings.caption -%}
+                  <p class="image-with-text__text image-with-text__text--caption caption-with-letter-spacing caption-with-letter-spacing--medium">
+                    {{ block.settings.caption | escape }}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.heading -%}
+                  <h2 class="image-with-text__heading h2 rte" style="margin-top: 1.2rem;">
+                    {{ block.settings.heading }}
+                  </h2>
+                {%- endif -%}
+                {%- if block.settings.text -%}
+                  <div class="image-with-text__text rte body">{{ block.settings.text }}</div>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a
+                    {% if block.settings.button_link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.button_link }}"
+                    {% endif %}
+                    class="button button--secondary"
+                  >
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                {%- endif -%}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    {%- endfor -%}
+      {%- endfor -%}
+    </div>
   </div>
 </div>
 
@@ -228,6 +305,28 @@
       "id": "section_color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-5"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_background_image",
+      "label": "t:sections.multirow.settings.section_background_image.label",
+      "info": "t:sections.multirow.settings.section_background_image.info"
+    },
+    {
+      "type": "color",
+      "id": "section_background_overlay_color",
+      "label": "t:sections.multirow.settings.section_background_overlay_color.label",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "section_background_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.multirow.settings.section_background_overlay_opacity.label",
+      "default": 40
     },
     {
       "type": "header",

@@ -138,12 +138,58 @@
       endif
     -%}
 
+    {% liquid
+      assign header_icon_image = section.settings.header_icon_image
+      assign header_icon_alt = section.settings.header_icon_alt | default: shop.name | escape
+      assign header_icon_width = section.settings.header_icon_width | default: settings.logo_width | default: 120
+      assign header_icon_medium_width = header_icon_width | times: 1.5 | round
+      assign header_icon_max_width = header_icon_width | times: 2
+      if header_icon_image != blank and header_icon_image.aspect_ratio
+        assign header_icon_height = header_icon_width | divided_by: header_icon_image.aspect_ratio
+      else
+        assign header_icon_height = header_icon_width
+      endif
+      capture header_icon_widths_default
+        echo header_icon_width
+        echo ', '
+        echo header_icon_medium_width
+        echo ', '
+        echo header_icon_max_width
+      endcapture
+      assign header_icon_widths_default = header_icon_widths_default | strip
+      capture header_icon_sizes_default
+        echo '(max-width: '
+        echo header_icon_max_width
+        echo 'px) 50vw, '
+        echo header_icon_width
+        echo 'px'
+      endcapture
+      assign header_icon_sizes_default = header_icon_sizes_default | strip
+      capture header_icon_sizes_center
+        echo '(min-width: 750px) '
+        echo header_icon_width
+        echo 'px, 50vw'
+      endcapture
+      assign header_icon_sizes_center = header_icon_sizes_center | strip
+    %}
     {%- if section.settings.logo_position != 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-            {%- if settings.logo != blank -%}
+            {%- if header_icon_image != blank -%}
+              <div class="header__heading-logo-wrapper">
+                {{ header_icon_image | image_url: width: header_icon_max_width | image_tag:
+                  class: 'header__heading-logo header__heading-logo--custom motion-reduce',
+                  widths: header_icon_widths_default,
+                  height: header_icon_height,
+                  width: header_icon_width,
+                  alt: header_icon_alt,
+                  sizes: header_icon_sizes_default,
+                  preload: true
+                }}
+              </div>
+            {%- elsif settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -183,7 +229,19 @@
         <h1 class="header__heading">
       {%- endif -%}
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-            {%- if settings.logo != blank -%}
+            {%- if header_icon_image != blank -%}
+              <div class="header__heading-logo-wrapper">
+                {{ header_icon_image | image_url: width: header_icon_max_width | image_tag:
+                  class: 'header__heading-logo header__heading-logo--custom',
+                  widths: header_icon_widths_default,
+                  height: header_icon_height,
+                  width: header_icon_width,
+                  alt: header_icon_alt,
+                  sizes: header_icon_sizes_center,
+                  preload: true
+                }}
+              </div>
+            {%- elsif settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -568,6 +626,28 @@
       "id": "menu_color_scheme",
       "label": "t:sections.header.settings.menu_color_scheme.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "header_icon_image",
+      "label": "t:sections.header.settings.header_icon_image_label",
+      "info": "t:sections.header.settings.header_icon_image_info"
+    },
+    {
+      "type": "text",
+      "id": "header_icon_alt",
+      "label": "t:sections.header.settings.header_icon_alt_label",
+      "info": "t:sections.header.settings.header_icon_alt_info"
+    },
+    {
+      "type": "range",
+      "id": "header_icon_width",
+      "min": 40,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.header.settings.header_icon_width_label",
+      "default": 120
     },
     {
       "type": "header",

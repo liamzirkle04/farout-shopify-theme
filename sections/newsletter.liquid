@@ -7,6 +7,12 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .section-{{ section.id }}-padding .newsletter-form__additional-fields {
+    display: grid;
+    gap: 1.2rem;
+    margin-bottom: 1.6rem;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -54,6 +60,72 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
+                {%- if block.settings.include_first_name or block.settings.include_last_name or block.settings.include_phone or block.settings.include_message -%}
+                  <div class="newsletter-form__additional-fields">
+                    {%- if block.settings.include_first_name -%}
+                      <div class="field">
+                        <input
+                          id="NewsletterForm-first-name-{{ section.id }}"
+                          type="text"
+                          name="contact[first_name]"
+                          class="field__input"
+                          value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}"
+                          autocomplete="given-name"
+                          placeholder="{{ 'newsletter.first_name_label' | t }}"
+                        >
+                        <label class="field__label" for="NewsletterForm-first-name-{{ section.id }}">
+                          {{ 'newsletter.first_name_label' | t }}
+                        </label>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.include_last_name -%}
+                      <div class="field">
+                        <input
+                          id="NewsletterForm-last-name-{{ section.id }}"
+                          type="text"
+                          name="contact[last_name]"
+                          class="field__input"
+                          value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}"
+                          autocomplete="family-name"
+                          placeholder="{{ 'newsletter.last_name_label' | t }}"
+                        >
+                        <label class="field__label" for="NewsletterForm-last-name-{{ section.id }}">
+                          {{ 'newsletter.last_name_label' | t }}
+                        </label>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.include_phone -%}
+                      <div class="field">
+                        <input
+                          id="NewsletterForm-phone-{{ section.id }}"
+                          type="tel"
+                          name="contact[phone]"
+                          class="field__input"
+                          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                          autocomplete="tel"
+                          placeholder="{{ 'newsletter.phone_label' | t }}"
+                        >
+                        <label class="field__label" for="NewsletterForm-phone-{{ section.id }}">
+                          {{ 'newsletter.phone_label' | t }}
+                        </label>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.include_message -%}
+                      <div class="field">
+                        <textarea
+                          id="NewsletterForm-message-{{ section.id }}"
+                          name="contact[body]"
+                          class="text-area field__input"
+                          rows="4"
+                          placeholder="{{ 'newsletter.message_label' | t }}"
+                        >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                        <label class="form__label field__label" for="NewsletterForm-message-{{ section.id }}">
+                          {{ 'newsletter.message_label' | t }}
+                        </label>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
                 <div class="field">
                   <input
                     id="NewsletterForm--{{ section.id }}"
@@ -228,7 +300,33 @@
     {
       "type": "email_form",
       "name": "t:sections.newsletter.blocks.email_form.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "include_first_name",
+          "label": "t:sections.newsletter.blocks.email_form.settings.include_first_name.label",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "include_last_name",
+          "label": "t:sections.newsletter.blocks.email_form.settings.include_last_name.label",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "include_phone",
+          "label": "t:sections.newsletter.blocks.email_form.settings.include_phone.label",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "include_message",
+          "label": "t:sections.newsletter.blocks.email_form.settings.include_message.label",
+          "default": false
+        }
+      ]
     },
     {
       "type": "@app"

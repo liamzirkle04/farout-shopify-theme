@@ -1599,6 +1599,16 @@
           },
           "label": "Placement"
         },
+        "section_background_image": {
+          "label": "Background image",
+          "info": "Upload a background image for the About section."
+        },
+        "section_background_overlay_color": {
+          "label": "Overlay color"
+        },
+        "section_background_overlay_opacity": {
+          "label": "Overlay opacity"
+        },
         "container_color_scheme": {
           "label": "Container color scheme"
         },
@@ -2626,7 +2636,21 @@
           }
         },
         "email_form": {
-          "name": "Email form"
+          "name": "Email form",
+          "settings": {
+            "include_first_name": {
+              "label": "Show first name field"
+            },
+            "include_last_name": {
+              "label": "Show last name field"
+            },
+            "include_phone": {
+              "label": "Show phone field"
+            },
+            "include_message": {
+              "label": "Show message field"
+            }
+          }
         }
       },
       "presets": {

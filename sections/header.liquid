@@ -72,9 +72,21 @@
   }
 </style>
 
+{% liquid
+  assign header_padding_horizontal_setting = section.settings.padding_horizontal
+  if header_padding_horizontal_setting == blank
+    assign header_padding_horizontal_setting = 48
+  endif
+  assign header_padding_horizontal_mobile = header_padding_horizontal_setting | times: 0.5 | round: 0
+  assign header_padding_horizontal_desktop = header_padding_horizontal_setting
+%}
+
 {%- style -%}
   .header {
-    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px;
+    padding-left: {{ header_padding_horizontal_mobile }}px !important;
+    padding-right: {{ header_padding_horizontal_mobile }}px !important;
   }
 
   .section-header {
@@ -92,6 +104,8 @@
     .header {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-left: {{ header_padding_horizontal_desktop }}px !important;
+      padding-right: {{ header_padding_horizontal_desktop }}px !important;
     }
   }
 {%- endstyle -%}
@@ -99,11 +113,25 @@
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
+  assign has_app_block = false
+  assign custom_nav_block_count = 0
+
   for block in section.blocks
     if block.type == '@app'
       assign has_app_block = true
+    elsif block.type == 'custom_link'
+      assign custom_nav_block_count = custom_nav_block_count | plus: 1
     endif
   endfor
+
+  assign use_custom_navigation = section.settings.enable_custom_navigation
+  if use_custom_navigation and custom_nav_block_count > 0
+    assign has_custom_navigation = true
+  else
+    assign has_custom_navigation = false
+  endif
+
+  assign has_menu = section.settings.menu != blank or has_custom_navigation
 -%}
 
 {% liquid
@@ -127,13 +155,13 @@
       assign localization_forms = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' and has_menu %} drawer-menu{% endif %}{% if has_menu %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
-      if section.settings.menu != blank
+      if has_menu
         render 'header-drawer'
       endif
 
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
+      if section.settings.logo_position == 'top-center' or has_menu == false
         render 'header-search', input_id: 'Search-In-Modal-1'
       endif
     -%}
@@ -214,15 +242,37 @@
       {%- endif -%}
     {%- endif -%}
 
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
+    {%- if has_menu -%}
+      {%- if has_custom_navigation -%}
+        {%- if section.settings.menu_type_desktop != 'drawer' -%}
+          <nav class="header__inline-menu">
+            <ul class="list-menu list-menu--inline" role="list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'custom_link' -%}
+                  <li {{ block.shopify_attributes }}>
+                    {%- assign custom_link_target = block.settings.link | default: '#' -%}
+                    <a
+                      href="{{ custom_link_target }}"
+                      class="header__menu-item list-menu__item link link--text focus-inset"
+                    >
+                      {{ block.settings.label | escape }}
+                    </a>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        {%- liquid
+          if section.settings.menu_type_desktop == 'dropdown'
+            render 'header-dropdown-menu'
+          elsif section.settings.menu_type_desktop != 'drawer'
+            render 'header-mega-menu'
+          endif
+        -%}
+      {%- endif -%}
+    {%- endif -%}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -295,7 +345,7 @@
       {%- if shop.customer_accounts_enabled -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+          class="header__icon header__icon--account link focus-inset{% if has_menu %} small-hide{% endif %}"
           rel="nofollow"
         >
           {%- if section.settings.enable_customer_avatar -%}
@@ -582,6 +632,13 @@
       "label": "t:sections.header.settings.menu_type_desktop.label"
     },
     {
+      "type": "checkbox",
+      "id": "enable_custom_navigation",
+      "label": "t:sections.header.settings.enable_custom_navigation.label",
+      "info": "t:sections.header.settings.enable_custom_navigation.info",
+      "default": false
+    },
+    {
       "type": "select",
       "id": "sticky_header_type",
       "options": [
@@ -711,11 +768,40 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.header.settings.padding_horizontal.label",
+      "default": 48
     }
   ],
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "custom_link",
+      "name": "t:sections.header.blocks.custom_link.name",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.header.blocks.custom_link.settings.label.label",
+          "default": "Section"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.header.blocks.custom_link.settings.link.label",
+          "info": "t:sections.header.blocks.custom_link.settings.link.info"
+        }
+      ]
     }
   ]
 }

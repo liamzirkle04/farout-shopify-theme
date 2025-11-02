@@ -32,8 +32,7 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background-color: rgba(var(--section-overlay-rgb, 0, 0, 0), var(--section-overlay-opacity, 0));
-    opacity: 1;
+    background-color: var(--section-overlay-color, rgba(0, 0, 0, 0));
   }
 
   .section-{{ section.id }}-background .section-background-content {
@@ -62,6 +61,19 @@
     background-color: transparent;
   }
 
+  .section-{{ section.id }}-background .image-with-text__media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-background .image-with-text__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-color: var(--section-overlay-color, rgba(0, 0, 0, 0));
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -80,11 +92,20 @@
   assign section_background_image = section.settings.section_background_image
   assign overlay_color = section.settings.section_background_overlay_color | default: '#000000'
   assign overlay_opacity_value = section.settings.section_background_overlay_opacity | default: 0 | times: 0.01
-  assign overlay_opacity_for_styles = 0
-  if section_background_image != blank
-    assign overlay_opacity_for_styles = overlay_opacity_value
-  endif
-  assign overlay_rgb = overlay_color | color_to_rgb
+  assign overlay_red = overlay_color | color_extract: 'red'
+  assign overlay_green = overlay_color | color_extract: 'green'
+  assign overlay_blue = overlay_color | color_extract: 'blue'
+  capture overlay_rgba
+    echo 'rgba('
+    echo overlay_red
+    echo ', '
+    echo overlay_green
+    echo ', '
+    echo overlay_blue
+    echo ', '
+    echo overlay_opacity_value
+    echo ')'
+  endcapture
 
   if settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0
     assign no_content_styles = true
@@ -105,10 +126,8 @@
 
 {% liquid
   capture section_background_styles
-    echo '--section-overlay-rgb: '
-    echo overlay_rgb
-    echo '; --section-overlay-opacity: '
-    echo overlay_opacity_for_styles
+    echo '--section-overlay-color: '
+    echo overlay_rgba | strip
     echo ';'
     if section_background_image != blank
       echo ' --section-background-image: url('

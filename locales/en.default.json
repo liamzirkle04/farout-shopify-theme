@@ -291,7 +291,28 @@
         "header_icon_image_info": "Upload a logo or icon to replace the Far Out Flatbeds text in the header.",
         "header_icon_alt_label": "Header icon alt text",
         "header_icon_alt_info": "Describe the header image for accessibility.",
-        "header_icon_width_label": "Header icon width"
+        "header_icon_width_label": "Header icon width",
+        "enable_custom_navigation": {
+          "label": "Enable custom navigation",
+          "info": "Replace the menu with custom section links defined below."
+        },
+        "padding_horizontal": {
+          "label": "Header horizontal padding"
+        }
+      },
+      "blocks": {
+        "custom_link": {
+          "name": "Custom navigation link",
+          "settings": {
+            "label": {
+              "label": "Link label"
+            },
+            "link": {
+              "label": "Link target",
+              "info": "Use section anchors like #about or any URL."
+            }
+          }
+        }
       }
     },
     "multirow": {

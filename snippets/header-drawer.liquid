@@ -5,6 +5,23 @@
   {% render 'header-drawer' %}
 {% endcomment %}
 
+{%- liquid
+  assign use_custom_navigation = section.settings.enable_custom_navigation
+  assign custom_nav_block_count = 0
+
+  if use_custom_navigation
+    for block in section.blocks
+      if block.type == 'custom_link'
+        assign custom_nav_block_count = custom_nav_block_count | plus: 1
+      endif
+    endfor
+
+    if custom_nav_block_count == 0
+      assign use_custom_navigation = false
+    endif
+  endif
+-%}
+
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
     <summary
@@ -21,7 +38,22 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {%- for link in section.settings.menu.links -%}
+              {%- if use_custom_navigation -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'custom_link' -%}
+                    <li {{ block.shopify_attributes }}>
+                      {%- assign custom_link_target = block.settings.link | default: '#' -%}
+                      <a
+                        href="{{ custom_link_target }}"
+                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
+                      >
+                        {{ block.settings.label | escape }}
+                      </a>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- else -%}
+                {%- for link in section.settings.menu.links -%}
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
@@ -132,7 +164,8 @@
                     </a>
                   {%- endif -%}
                 </li>
-              {%- endfor -%}
+                {%- endfor -%}
+              {%- endif -%}
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">

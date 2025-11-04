@@ -39,6 +39,10 @@
 {%- endstyle -%}
 
 {%- liquid
+  assign anchor_id_setting = section.settings.anchor_id | strip
+  if anchor_id_setting != blank
+    assign anchor_id = anchor_id_setting | handleize
+  endif
   assign products_to_display = section.settings.collection.all_products_count
 
   if section.settings.collection.all_products_count > section.settings.products_to_show
@@ -65,6 +69,7 @@
 -%}
 
 <div
+  {% if anchor_id != blank %}id="{{ anchor_id }}"{% endif %}
   class="color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
@@ -227,6 +232,12 @@
       "type": "collection",
       "id": "collection",
       "label": "t:sections.featured-collection.settings.collection.label"
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Optional ID attribute for anchor links."
     },
     {
       "type": "range",

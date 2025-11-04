@@ -387,6 +387,9 @@
         },
         "content_offset": {
           "label": "Content vertical offset"
+        },
+        "content_offset_mobile": {
+          "label": "Content vertical offset (mobile)"
         }
       }
     },

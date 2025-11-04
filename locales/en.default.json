@@ -332,6 +332,64 @@
         }
       }
     },
+    "email-signup-banner": {
+      "blocks": {
+        "email_form": {
+          "settings": {
+            "button_label": {
+              "label": "Button label",
+              "default": "Request Information"
+            }
+          }
+        }
+      }
+    },
+    "featured-collection": {
+      "settings": {
+        "heading_alignment": {
+          "label": "Heading alignment",
+          "options__left": "Left",
+          "options__center": "Center",
+          "options__right": "Right"
+        }
+      }
+    },
+    "contact_form": {
+      "settings": {
+        "contact_email": {
+          "label": "Contact email"
+        },
+        "contact_phone": {
+          "label": "Contact phone"
+        }
+      },
+      "contact_email_label": "Email",
+      "contact_phone_label": "Phone"
+    },
+    "email_signup": {
+      "form": {
+        "name_label": "Name",
+        "name_placeholder": "Name",
+        "email_label": "Email",
+        "email_placeholder": "Email address",
+        "phone_label": "Phone number",
+        "phone_placeholder": "Phone number",
+        "message_label": "Tell us about your needs",
+        "message_placeholder": "Describe how you plan to use your flatbed, any special requirements, etc.",
+        "submit_label": "Request Information",
+        "success": "Thanks! We\u2019ll be in touch soon."
+      }
+    },
+    "image-banner": {
+      "settings": {
+        "text_color": {
+          "label": "Banner text color"
+        },
+        "content_offset": {
+          "label": "Content vertical offset"
+        }
+      }
+    },
     "newsletter": {
       "blocks": {
         "email_form": {

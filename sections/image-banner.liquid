@@ -29,6 +29,46 @@
   }
 {%- endstyle -%}
 
+{%- if section.settings.text_color != blank -%}
+  {%- style -%}
+    #Banner-{{ section.id }} .banner__heading,
+    #Banner-{{ section.id }} .banner__text,
+    #Banner-{{ section.id }} .banner__text p,
+    #Banner-{{ section.id }} .banner__text a:not(.button),
+    #Banner-{{ section.id }} .banner__subheading,
+    #Banner-{{ section.id }} .banner__box,
+    #Banner-{{ section.id }} .banner__box .inline-richtext,
+    #Banner-{{ section.id }} .banner__box .rte {
+      color: {{ section.settings.text_color }};
+    }
+
+    #Banner-{{ section.id }} .banner__text a:not(.button) {
+      border-color: {{ section.settings.text_color }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- liquid
+  assign banner_content_offset = section.settings.content_offset | default: 320
+  assign banner_content_offset_mobile = banner_content_offset | times: 0.6 | round
+-%}
+
+{%- if banner_content_offset > 0 -%}
+  {%- style -%}
+    @media screen and (max-width: 749px) {
+      #Banner-{{ section.id }} .banner__content {
+        padding-top: {{ banner_content_offset_mobile }}px;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      #Banner-{{ section.id }} .banner__content {
+        padding-top: {{ banner_content_offset }}px;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 {%- liquid
   assign full_width = '100vw'
   assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
@@ -143,6 +183,21 @@
       "unit": "%",
       "label": "t:sections.image-banner.settings.image_overlay_opacity.label",
       "default": 70
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:sections.image-banner.settings.text_color.label"
+    },
+    {
+      "type": "range",
+      "id": "content_offset",
+      "min": 0,
+      "max": 640,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.image-banner.settings.content_offset.label",
+      "default": 320
     },
     {
       "type": "select",

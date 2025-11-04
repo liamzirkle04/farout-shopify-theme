@@ -32,6 +32,29 @@
     {%- else -%}
       <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
     {%- endif -%}
+
+    {%- if section.settings.contact_email != blank or section.settings.contact_phone != blank -%}
+      <div class="contact__details{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <ul class="contact__details-list" role="list">
+          {%- if section.settings.contact_email != blank -%}
+            <li class="contact__details-item">
+              <span class="contact__details-label">{{ 'sections.contact_form.contact_email_label' | t }}</span>
+              <a class="link link--text" href="mailto:{{ section.settings.contact_email | strip }}">
+                {{ section.settings.contact_email | escape }}
+              </a>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.contact_phone != blank -%}
+            <li class="contact__details-item">
+              <span class="contact__details-label">{{ 'sections.contact_form.contact_phone_label' | t }}</span>
+              <a class="link link--text" href="tel:{{ section.settings.contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">
+                {{ section.settings.contact_phone | escape }}
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+    {%- endif -%}
     {%- liquid
       assign contact_form_class = 'isolate'
       if settings.animations_reveal_on_scroll
@@ -199,6 +222,18 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "t:sections.contact_form.settings.contact_email.label",
+      "default": "support@example.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "t:sections.contact_form.settings.contact_phone.label",
+      "default": "(123) 456-7890"
     },
     {
       "type": "header",

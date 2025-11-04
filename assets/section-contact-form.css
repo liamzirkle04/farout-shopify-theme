@@ -14,9 +14,39 @@
   margin-bottom: 1.5rem;
 }
 
+.contact__details {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact__details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.contact__details-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.contact__details-label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
 @media screen and (min-width: 750px) {
   .contact .field {
     margin-bottom: 2rem;
+  }
+
+  .contact__details-list {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.5rem 3rem;
   }
 }
 

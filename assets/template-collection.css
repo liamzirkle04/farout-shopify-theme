@@ -75,6 +75,21 @@
   margin-bottom: 1rem;
 }
 
+.collection__title--align-left {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.collection__title--align-center {
+  text-align: center;
+  align-items: center;
+}
+
+.collection__title--align-right {
+  text-align: right;
+  align-items: flex-end;
+}
+
 @media screen and (min-width: 990px) {
   .collection__title--desktop-slider .title {
     margin-bottom: 2.5rem;

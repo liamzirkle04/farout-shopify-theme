@@ -72,7 +72,7 @@
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
-    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
+    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %} collection__title--align-{{ section.settings.heading_alignment }}">
       {%- if section.settings.title != blank -%}
         <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           {{ section.settings.title }}
@@ -236,16 +236,36 @@
       "step": 1,
       "default": 6,
       "label": "t:sections.featured-collection.settings.products_to_show.label"
-    },     
+    },
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_text.content"
-    },   
+    },
     {
       "type": "inline_richtext",
       "id": "title",
       "default": "t:sections.featured-collection.settings.title.default",
       "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:sections.featured-collection.settings.heading_alignment.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.featured-collection.settings.heading_alignment.options__left"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.featured-collection.settings.heading_alignment.options__center"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.featured-collection.settings.heading_alignment.options__right"
+        }
+      ]
     },
     {
       "type": "select",

@@ -669,6 +669,12 @@
         "title": {
           "default": "Contact form",
           "label": "Heading"
+        },
+        "contact_email": {
+          "label": "Contact email"
+        },
+        "contact_phone": {
+          "label": "Contact phone"
         }
       }
     },
@@ -733,6 +739,18 @@
         "title": {
           "label": "Heading",
           "default": "Featured collection"
+        },
+        "heading_alignment": {
+          "label": "Heading alignment",
+          "options__left": {
+            "label": "Left"
+          },
+          "options__center": {
+            "label": "Center"
+          },
+          "options__right": {
+            "label": "Right"
+          }
         },
         "description": {
           "label": "Description"
@@ -1156,6 +1174,11 @@
           "label": "Customer account avatar",
           "info": "Only visible when customers are signed in with Shop. [Manage customer accounts](/admin/settings/customer_accounts)"
         },
+        "header_icon_image_label": "Header icon image",
+        "header_icon_image_info": "Upload a logo or icon to replace the Far Out Flatbeds text in the header.",
+        "header_icon_alt_label": "Header icon alt text",
+        "header_icon_alt_info": "Describe the header image for accessibility.",
+        "header_icon_width_label": "Header icon width",
         "header_icon_image": {
           "label": "Header icon image",
           "info": "Upload a logo or icon to replace the Far Out Flatbeds text in the header."
@@ -1194,6 +1217,12 @@
         },
         "image_overlay_opacity": {
           "label": "Overlay opacity"
+        },
+        "text_color": {
+          "label": "Banner text color"
+        },
+        "content_offset": {
+          "label": "Content vertical offset"
         },
         "image_height": {
           "label": "Height",
@@ -2818,7 +2847,13 @@
           }
         },
         "email_form": {
-          "name": "Email form"
+          "name": "Email form",
+          "settings": {
+            "button_label": {
+              "label": "Button label",
+              "default": "Request Information"
+            }
+          }
         }
       },
       "presets": {

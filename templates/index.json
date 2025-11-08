@@ -216,11 +216,11 @@
       "type": "contact-form",
       "settings": {
         "anchor_id": "contact",
-        "heading": "Ready to build your perfect flatbed?",
-        "heading_size": "h2",
+        "heading": "Interested in a flatbed? Reach out!",
+        "heading_size": "h1",
         "color_scheme": "scheme-3",
-        "contact_email": "support@example.com",
-        "contact_phone": "(123) 456-7890",
+        "contact_email": "",
+        "contact_phone": "",
         "padding_top": 36,
         "padding_bottom": 36
       }

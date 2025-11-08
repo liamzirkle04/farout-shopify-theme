@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -9,40 +18,24 @@
             "heading": "More than a flatbed",
             "heading_size": "hxl"
           }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Flatbeds built to adapt to your lifestyle.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
         }
       },
       "block_order": [
-        "heading",
-        "text",
-        "button"
+        "heading"
       ],
       "settings": {
+        "image": "shopify://shop_images/Screenshot_2025-10-29_at_2.55.35_PM.png",
         "image_overlay_opacity": 70,
+        "text_color": "",
+        "content_offset": 320,
+        "content_offset_mobile": 384,
         "image_height": "screen",
         "image_behavior": "fixed",
-        "desktop_content_position": "bottom-left-edge",
-        "show_text_box": false,
-        "desktop_content_alignment": "left",
-        "color_scheme": "scheme-3",
         "banner_color_scheme": "scheme-3",
+        "desktop_content_position": "bottom-left-edge",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
         "mobile_content_alignment": "center",
         "show_text_below": false
       }
@@ -53,9 +46,13 @@
         "row-1": {
           "type": "row",
           "settings": {
+            "image_width_scale": 2,
+            "image_height_scale": 3,
+            "corner_radius": 20,
+            "direction": "inherit",
             "caption": "Work-ready",
             "heading": "Built for the long haul",
-            "text": "<p>Our adaptive flatbeds flex with your payload so you can move faster and safer.<\/p>",
+            "text": "<p>Our adaptive flatbeds flex with your payload so you can move faster and safer.</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -63,10 +60,13 @@
         "row-2": {
           "type": "row",
           "settings": {
+            "image_width_scale": 2,
+            "image_height_scale": 3,
+            "corner_radius": 20,
             "direction": "image-right",
             "caption": "Custom fit",
             "heading": "Dialed for your rig",
-            "text": "<p>Pick finishes, storage, and lighting packages that match how you work.<\/p>",
+            "text": "<p>Pick finishes, storage, and lighting packages that match how you work.</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -77,27 +77,15 @@
         "row-2"
       ],
       "settings": {
-        "section_heading": "Why Far Out"
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 6,
-        "columns_desktop": 3,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 28,
-        "padding_bottom": 36
+        "row_gap_mobile": 32,
+        "row_gap_desktop": 56,
+        "section_heading": "Why Far Out",
+        "section_anchor_id": "about",
+        "section_color_scheme": "",
+        "section_background_overlay_color": "#000000",
+        "section_background_overlay_opacity": 40,
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "far_out_features": {
@@ -108,9 +96,10 @@
           "settings": {
             "title": "Bolt-Together Design",
             "description": "Anodized aluminum extrusions connect with serviceable hardware allowing for endless repairs and upgrades.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 4,
-            "row_span": 4,
-            "color_scheme": "scheme-4"
+            "row_span": 4
           }
         },
         "feature-2": {
@@ -118,9 +107,10 @@
           "settings": {
             "title": "Flatpac Shipping",
             "description": "Our bolt-together design ships flat to your door and assembles fast for a modular upgrade.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 2,
-            "row_span": 2,
-            "color_scheme": "scheme-4"
+            "row_span": 2
           }
         },
         "feature-3": {
@@ -128,9 +118,10 @@
           "settings": {
             "title": "Powder-Coated Armor",
             "description": "Textured powder coat shrugs off trail rash while sealed seams keep corrosion at bay.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 2,
-            "row_span": 2,
-            "color_scheme": "scheme-4"
+            "row_span": 2
           }
         },
         "feature-4": {
@@ -138,9 +129,10 @@
           "settings": {
             "title": "Oversized Fenders",
             "description": "Designed to swallow 40-inch tires with room to spare, keeping clearance dialed on any trail.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 2,
-            "row_span": 2,
-            "color_scheme": "scheme-4"
+            "row_span": 2
           }
         },
         "feature-5": {
@@ -148,9 +140,10 @@
           "settings": {
             "title": "Modular Gear Rails",
             "description": "Full-perimeter accessory rail accepts MOLLE plates, RTT mounts, and cargo solutions without drilling.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 2,
-            "row_span": 2,
-            "color_scheme": "scheme-4"
+            "row_span": 2
           }
         },
         "feature-6": {
@@ -158,9 +151,10 @@
           "settings": {
             "title": "Storage Options",
             "description": "Integrated drawers, cubbies, and tie-down points keep tools and gear organized for any mission.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 2,
-            "row_span": 2,
-            "color_scheme": "scheme-4"
+            "row_span": 2
           }
         },
         "feature-7": {
@@ -168,9 +162,10 @@
           "settings": {
             "title": "Transferable Between Vehicles",
             "description": "Swap the flatbed onto any similar-size truck when you upgrade, so your setup keeps rolling with you.",
+            "color_scheme": "scheme-4",
+            "image_alt": "",
             "column_span": 6,
-            "row_span": 3,
-            "color_scheme": "scheme-4"
+            "row_span": 3
           }
         }
       },
@@ -190,13 +185,47 @@
         "intro": "<p>These are the core systems that make Far Out Flatbeds adaptable, future-proof, and easy to live with day to day.</p>"
       }
     },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "anchor_id": "",
+        "products_to_show": 6,
+        "title": "Featured products",
+        "heading_alignment": "left",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 3,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 28,
+        "padding_bottom": 36
+      }
+    },
     "contact_form_home": {
       "type": "contact-form",
       "settings": {
         "anchor_id": "contact",
         "heading": "Ready to build your perfect flatbed?",
         "heading_size": "h2",
-        "color_scheme": "scheme-3"
+        "color_scheme": "scheme-3",
+        "contact_email": "support@example.com",
+        "contact_phone": "(123) 456-7890",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },

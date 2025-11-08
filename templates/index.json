@@ -130,6 +130,7 @@
             "title": "Bolt-Together Design",
             "description": "Anodized aluminum extrusions connect with serviceable hardware allowing for endless repairs and upgrades.",
             "color_scheme": "scheme-4",
+            "image": "shopify://shop_images/Screenshot_2025-10-24_at_4.23.18_PM.png",
             "image_alt": "",
             "column_span": 4,
             "row_span": 4
@@ -141,6 +142,7 @@
             "title": "Flatpac Shipping",
             "description": "Our bolt-together design ships flat to your door and assembles fast for a modular upgrade.",
             "color_scheme": "scheme-4",
+            "image": "shopify://shop_images/Screenshot_2025-10-24_at_4.24.23_PM.png",
             "image_alt": "",
             "column_span": 2,
             "row_span": 2
@@ -152,6 +154,7 @@
             "title": "Powder-Coated Armor",
             "description": "Textured powder coat shrugs off trail rash while sealed seams keep corrosion at bay.",
             "color_scheme": "scheme-4",
+            "image": "shopify://shop_images/Screenshot_2025-10-29_at_2.46.05_PM.png",
             "image_alt": "",
             "column_span": 2,
             "row_span": 2
@@ -163,8 +166,9 @@
             "title": "Oversized Fenders",
             "description": "Designed to swallow 40-inch tires with room to spare, keeping clearance dialed on any trail.",
             "color_scheme": "scheme-4",
+            "image": "shopify://shop_images/Screenshot_2025-10-24_at_4.19.35_PM.png",
             "image_alt": "",
-            "column_span": 2,
+            "column_span": 3,
             "row_span": 2
           }
         },
@@ -174,19 +178,9 @@
             "title": "Modular Gear Rails",
             "description": "Full-perimeter accessory rail accepts MOLLE plates, RTT mounts, and cargo solutions without drilling.",
             "color_scheme": "scheme-4",
+            "image": "shopify://shop_images/Screenshot_2025-10-24_at_4.18.49_PM.png",
             "image_alt": "",
-            "column_span": 2,
-            "row_span": 2
-          }
-        },
-        "feature-6": {
-          "type": "feature_card",
-          "settings": {
-            "title": "Storage Options",
-            "description": "Integrated drawers, cubbies, and tie-down points keep tools and gear organized for any mission.",
-            "color_scheme": "scheme-4",
-            "image_alt": "",
-            "column_span": 2,
+            "column_span": 3,
             "row_span": 2
           }
         },
@@ -196,9 +190,10 @@
             "title": "Transferable Between Vehicles",
             "description": "Swap the flatbed onto any similar-size truck when you upgrade, so your setup keeps rolling with you.",
             "color_scheme": "scheme-4",
+            "image": "shopify://shop_images/flatbedsiteimage_d8896e59-da58-41e5-899b-6a800015fc74.jpg",
             "image_alt": "",
             "column_span": 6,
-            "row_span": 3
+            "row_span": 2
           }
         }
       },
@@ -208,7 +203,6 @@
         "feature-3",
         "feature-4",
         "feature-5",
-        "feature-6",
         "feature-7"
       ],
       "settings": {

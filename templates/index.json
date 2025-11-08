@@ -51,9 +51,9 @@
             "image_height_scale": 3,
             "corner_radius": 20,
             "direction": "inherit",
-            "caption": "Work-ready",
-            "heading": "Built for the long haul",
-            "text": "<p>Our adaptive flatbeds flex with your payload so you can move faster and safer.</p>",
+            "caption": "",
+            "heading": "<strong>What Makes Us Different</strong>",
+            "text": "<p>What sets the Far Out Flatbed apart from any other bed replacement on the market is its modular design. Built from extruded aluminum planks, the deck is fully configurable so you can bolt on, remove, or rearrange accessories to fit whatever you’re into — work, travel, or play. You’re never locked into one setup, and your flatbed can evolve as your needs change.<br/><br/>On top of that, it’s engineered to flat pack ship straight to your door with no freight depot and no welding required. It’s designed to be universal too, so if you ever upgrade trucks, you can take it with you as long as the new rig has a similar size and bed length. One bed, endless possibilities.</p>",
             "button_label": "",
             "button_link": ""
           }

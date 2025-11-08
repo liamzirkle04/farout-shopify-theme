@@ -131,7 +131,11 @@
     assign has_custom_navigation = false
   endif
 
-  assign has_menu = section.settings.menu != blank or has_custom_navigation
+  assign has_menu = false
+
+  if section.settings.menu != blank or has_custom_navigation
+    assign has_menu = true
+  endif
 -%}
 
 {% liquid

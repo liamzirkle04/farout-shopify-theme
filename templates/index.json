@@ -91,6 +91,36 @@
         "padding_bottom": 80
       }
     },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "anchor_id": "shop",
+        "products_to_show": 6,
+        "title": "Featured Collection",
+        "heading_alignment": "center",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 3,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 28,
+        "padding_bottom": 36
+      }
+    },
     "far_out_features": {
       "type": "far-out-features",
       "blocks": {
@@ -183,39 +213,9 @@
       ],
       "settings": {
         "anchor_id": "features",
-        "kicker": "Highlights",
-        "heading": "Modular by Design",
-        "intro": "<p>These are the core systems that make Far Out Flatbeds adaptable, future-proof, and easy to live with day to day.</p>"
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "all",
-        "anchor_id": "",
-        "products_to_show": 6,
-        "title": "Featured products",
-        "heading_alignment": "left",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 3,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 28,
-        "padding_bottom": 36
+        "kicker": "",
+        "heading": "Features",
+        "intro": ""
       }
     },
     "contact_form_home": {
@@ -235,8 +235,8 @@
   "order": [
     "image_banner",
     "custom_multirow_home",
-    "far_out_features",
     "featured_collection",
+    "far_out_features",
     "contact_form_home"
   ]
 }

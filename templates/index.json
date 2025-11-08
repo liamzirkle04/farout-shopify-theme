@@ -46,6 +46,7 @@
         "row-1": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-11-03_at_8.09.28_PM.png",
             "image_width_scale": 2,
             "image_height_scale": 3,
             "corner_radius": 20,
@@ -60,13 +61,14 @@
         "row-2": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-10-29_at_2.41.57_PM.png",
             "image_width_scale": 2,
             "image_height_scale": 3,
             "corner_radius": 20,
             "direction": "image-right",
-            "caption": "Custom fit",
-            "heading": "Dialed for your rig",
-            "text": "<p>Pick finishes, storage, and lighting packages that match how you work.</p>",
+            "caption": "",
+            "heading": "<strong>Born From Experience </strong>",
+            "text": "<p>I’ve been passionate about trucks and off-roading for as long as I can remember. Over the past five years working in the off-road industry, I’ve watched the space evolve and gained a clear perspective on where it’s going. One thing has stood out above all: we can build thoughtful, highly functional products right here in the U.S. that genuinely serve the people who use them.<br/><br/>Flatbeds have always caught my attention, but most options felt overbuilt, overly specialized, or too fixed in their design. I wanted to create something modular, a system that adapts alongside your needs instead of locking you into a single setup.<br/><br/>That idea sparked Far Out Flatbeds. By building around extruded aluminum, we created a platform that is incredibly strong, highly versatile, and designed to evolve. The core principle is modularity: a flatbed that adapts to you, your truck, and your lifestyle — not the other way around.<br/><br/>Far Out Flatbeds isn’t just about manufacturing truck beds. It’s about redefining what a flatbed can be. We build products designed by enthusiasts for enthusiasts, rooted in innovation, practicality, and a clean, purposeful aesthetic.</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -82,8 +84,9 @@
         "section_heading": "Why Far Out",
         "section_anchor_id": "about",
         "section_color_scheme": "",
+        "section_background_image": "shopify://shop_images/Screenshot_2025-10-29_at_2.46.05_PM.png",
         "section_background_overlay_color": "#000000",
-        "section_background_overlay_opacity": 40,
+        "section_background_overlay_opacity": 65,
         "padding_top": 80,
         "padding_bottom": 80
       }
